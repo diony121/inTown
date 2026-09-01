@@ -1196,3 +1196,104 @@ a {
   width: 100%;
   box-sizing: border-box;
 }
+
+
+/* ===== Event Details Page ===== */
+.event-details-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.event-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.event-image-wrapper {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.eventImage {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  display: block;
+}
+
+.event-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.event-info h1 {
+  font-size: 2rem;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.event-info p {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.event-description {
+  line-height: 1.6;
+}
+
+.rescheduled-notice {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.rescheduled-notice h3 {
+  margin: 0 0 0.5rem;
+}
+
+.free-event {
+  color: #2e7d32;
+  font-weight: bold;
+}
+
+.paid-event {
+  color: #c62828;
+  font-weight: bold;
+}
+
+/* Purchase form below event info */
+.purchase-form {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid #e0e0e0;
+}
+
+/* Responsive: stack on small screens */
+@media (max-width: 700px) {
+  .event-section {
+    grid-template-columns: 1fr;
+  }
+
+  .eventImage {
+    height: 200px;
+  }
+}
+
+/* ===== Ensure Paid/Free event colors ===== */
+.event-details-page .event-info .paid-event {
+  color: #c62828 !important;
+  font-weight: bold;
+}
+
+.event-details-page .event-info .free-event {
+  color: #2e7d32 !important;
+  font-weight: bold;
+}

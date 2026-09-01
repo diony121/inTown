@@ -58,21 +58,25 @@ export default function EventDetails() {
   });
 
   return (
-    <div className="event">
-      <section className="eventSection">
+  <div className="event-details-page">
+    <section className="event-section">
+      <div className="event-image-wrapper">
+        <img
+          className="eventImage"
+          src={event.image_url || defaultImage}
+          alt={event.title}
+        />
+      </div>
+
+      <div className="event-info">
         <h1>{event.title}</h1>
-        <p>Hosted at the {event.location_name}</p>
-        <p>
-          Address: {event.address} {event.city}, {event.state} {event.zip}
-        </p>
-        <p>
-          Hosted at {formattedTime} on {formattedDate}
-        </p>
+        <p><strong>Hosted at:</strong> {event.location_name}</p>
+        <p><strong>Address:</strong> {event.address} {event.city}, {event.state} {event.zip}</p>
+        <p><strong>Date & Time:</strong> {formattedDate} at {formattedTime}</p>
 
         {event.is_rescheduled && (
           <div className="rescheduled-notice">
             <h3>⚠ Event Rescheduled</h3>
-
             <p>
               Previous date:{" "}
               {new Date(event.previous_event_date).toLocaleDateString("en-US", {
@@ -81,38 +85,30 @@ export default function EventDetails() {
                 day: "numeric",
               })}
             </p>
-
             <p>
               Previous time:{" "}
-              {new Date(
-                `1970-01-01T${event.previous_event_time}`,
-              ).toLocaleTimeString("en-US", {
+              {new Date(`1970-01-01T${event.previous_event_time}`).toLocaleTimeString("en-US", {
                 hour: "numeric",
                 minute: "2-digit",
               })}
             </p>
-
             <p>New date: {formattedDate}</p>
             <p>New time: {formattedTime}</p>
           </div>
         )}
 
-        <p>{event.description}</p>
+        <p className="event-description">{event.description}</p>
         <p className={event.is_free ? "free-event" : "paid-event"}>
           {event.is_free ? "Free Event" : "Paid Event"}
         </p>
-        <img
-          className="eventImage"
-          src={event.image_url || defaultImage}
-          alt={event.title}
-        />
-      </section>
+      </div>
+    </section>
 
-      <PurchaseForm
-        ticketTypes={ticketTypes}
-        onPurchaseSuccess={refreshTicketTypes}
-        isPastEvent={isPastEvent}
-      />
-    </div>
-  );
+    <PurchaseForm
+      ticketTypes={ticketTypes}
+      onPurchaseSuccess={refreshTicketTypes}
+      isPastEvent={isPastEvent}
+    />
+  </div>
+);
 }
