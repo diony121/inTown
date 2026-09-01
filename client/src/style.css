@@ -309,34 +309,119 @@ a {
   color: red;
   font-weight: bold;
 }
-
-/* Purchase Form */
-.purchase-form {
-  /* border-top: 1px solid #ddd; */
-  padding-top: 1.5rem;
-  margin: 0 auto;
-  padding-left: 20px;
+.event {
+  display: block;
 }
 
-.purchase-form h3 {
-  margin-top: 0;
-  margin-bottom: 1rem;
+/* Purchase Form */
+/* ===== Ticket Cards: bigger with clear border ===== */
+.event {
+  display: block;
+}
+
+.purchase-form {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #ddd;
 }
 
 .tickets-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: flex-start;
+  align-items: stretch;
 }
 
 .ticket-card {
-  background: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 1rem;
+  width: 260px;
+  padding: 1.5rem;
+  background: #ffffff;
+  border: 2px solid #d6d6d6;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ticket-card:hover {
+  border-color: #4f63d8;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.ticket-card h4 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.ticket-price {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.ticket-stock {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 0;
+}
+
+.quantity-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.quantity-row button {
+  width: 36px;
+  height: 36px;
+  font-size: 1.2rem;
+  background: #fff;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.quantity-row button:hover {
+  border-color: #4f63d8;
+  background: #eef1ff;
+}
+
+.quantity-row button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.quantity-value {
+  min-width: 2.5rem;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.buy-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: #4f63d8;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.buy-btn:hover {
+  background: #3b4cb8;
+}
+
+.buy-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
 }
 
 .ticket-card h4 {
