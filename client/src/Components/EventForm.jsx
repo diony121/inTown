@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect} from "react";
+import { getCategories } from "../api/events";
 
 export default function EventForm({
   onSubmit,
@@ -18,6 +19,32 @@ export default function EventForm({
           },
         ],
   );
+
+  const [categories, setCategories] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState(
+  initialData.categories?.map((cat) => cat.id) || []
+);
+
+ useEffect(() => {
+  async function loadCategories() {
+    try {
+      const data = await getCategories();
+      setCategories(data);
+    } catch (error) {
+      console.error("Failed to load categories:", error);
+    }
+  }
+
+  loadCategories();
+}, []);
+
+function toggleCategory(categoryId) {
+  setSelectedCategories((prev) =>
+    prev.includes(categoryId)
+      ? prev.filter((id) => id !== categoryId)
+      : [...prev, categoryId]
+  );
+}
 
   function addTicketType() {
     setTicketTypes([
@@ -67,6 +94,8 @@ export default function EventForm({
       quantity: Number(ticket.quantity),
     }));
     }
+
+    eventData.category_ids = selectedCategories;
 
     const locationData = {
       name: formData.get("address"),
@@ -218,6 +247,22 @@ export default function EventForm({
             />
             <span>Paid Event</span>
           </label>
+        </div>
+      </div>
+      
+      <div className="form-group">
+        <label>Categories</label>
+        <div className="category-options">
+          {categories.map((category) => (
+            <label key={category.id} className="category-choice">
+              <input
+                type="checkbox"
+                checked={selectedCategories.includes(category.id)}
+                onChange={() => toggleCategory(category.id)}
+              />
+              {category.name}
+            </label>
+          ))}
         </div>
       </div>
 
