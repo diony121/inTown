@@ -1,11 +1,10 @@
-import { createContext, useContext, useState , useEffect} from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { loginUser, registerUser, getMe } from "../api/auth";
 
 const AuthContext = createContext();
 
 function getUserFromToken(token) {
   const payload = JSON.parse(atob(token.split(".")[1]));
-
   return {
     id: payload.id,
     token,
@@ -15,21 +14,19 @@ function getUserFromToken(token) {
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
     const token = localStorage.getItem("token");
-
     if (token) {
-      return getUserFromToken(token) ;
+      return getUserFromToken(token);
     }
-
     return null;
   });
 
-    useEffect(() => {
+  useEffect(() => {
     async function loadUser() {
       const token = localStorage.getItem("token");
-      if (token && !user?.id) {
+      if (token && !user?.email) {
         try {
           const me = await getMe();
-          setUser(me);
+          setUser({ ...me, token });
         } catch (error) {
           console.error("Failed to load user:", error);
           localStorage.removeItem("token");
@@ -43,18 +40,18 @@ export function AuthProvider({ children }) {
   async function register(userData) {
     const token = await registerUser(userData);
     localStorage.setItem("token", token);
-    const me2 = await getMe();
-    setUser(me2);
+    const me = await getMe();
+    setUser({ ...me, token });
   }
 
   async function login(userData) {
     const token = await loginUser(userData);
     localStorage.setItem("token", token);
     const me = await getMe();
-    setUser(me);
+    setUser({ ...me, token });
   }
 
-  const logout = async () => {
+  const logout = () => {
     localStorage.removeItem("token");
     setUser(null);
   };
